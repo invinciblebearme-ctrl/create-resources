@@ -1,0 +1,471 @@
+{
+  "boardTitle": "2026학년도 군산초 AI·디지털 교수·학습 자료 공유·확산",
+  "sections": [
+    {
+      "id": "sec_xPdL4gEVpPbMqpwK",
+      "title": "수업 도구",
+      "order": 1776934834
+    },
+    {
+      "id": "sec_jzJX4E5a68b64bnO",
+      "title": "대시보드",
+      "order": 1776934840
+    },
+    {
+      "id": "sec_J7z0qjZzBPNeqmWQ",
+      "title": "게임",
+      "order": 1776934846
+    },
+    {
+      "id": "sec_DKrG4nLrgzWOq1y3",
+      "title": "3학년",
+      "order": 1776934897
+    },
+    {
+      "id": "sec_Vnr04VOVyPgD2BdW",
+      "title": "4학년 국어",
+      "order": 1776934923
+    },
+    {
+      "id": "sec_Arng4MkBG8z5qK6p",
+      "title": "4학년 수학",
+      "order": 1776934948
+    },
+    {
+      "id": "sec_961rqRQnLeBP2nND",
+      "title": "4학년 사회",
+      "order": 1778421094
+    },
+    {
+      "id": "sec_J7pj4olBnmNL2KMG",
+      "title": "4학년 과학",
+      "order": 1779907240
+    },
+    {
+      "id": "sec_mVbpvYkz9PRL2Rkn",
+      "title": "퀴즈 라이브",
+      "order": 1781393386
+    },
+    {
+      "id": "sec_K8wMqGdwB8XxvZJO",
+      "title": "5학년",
+      "order": 1782879531
+    }
+  ],
+  "posts": [
+    {
+      "id": "post_j40PQD63NEvkWvXB",
+      "sectionId": "sec_J7pj4olBnmNL2KMG",
+      "title": "먹이그물 만들기",
+      "description": "(김성은 선생님 제작)",
+      "url": "https://biosort.kiss3927k.workers.dev/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327451",
+      "sortIndex": 47104
+    },
+    {
+      "id": "post_R7dXadMLOmX0Q6bl",
+      "sectionId": "sec_xPdL4gEVpPbMqpwK",
+      "title": "가치수직선",
+      "description": "(김성은 선생님 제작)",
+      "url": "https://valueline.kiss3927k.workers.dev/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327450",
+      "sortIndex": 46080
+    },
+    {
+      "id": "post_wKmOZ523k4OVWzMA",
+      "sectionId": "sec_xPdL4gEVpPbMqpwK",
+      "title": "탐구보드",
+      "description": "김성은 선생님 제작",
+      "url": "https://tamguboard.kiss3927k.workers.dev/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327447",
+      "sortIndex": 45056
+    },
+    {
+      "id": "post_goElQyAYBmEbQ3yY",
+      "sectionId": "sec_Vnr04VOVyPgD2BdW",
+      "title": "4학년 국,수,사,과 AI디지털 활용 개념기반탐구수업 자료",
+      "description": "4학년 국,수,사,과 AI디지털 활용 개념기반탐구수업 자료 모음(김성은 선생님 제작)",
+      "url": "https://sueop-jaryo.kiss3927k.workers.dev/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327446",
+      "sortIndex": 44032
+    },
+    {
+      "id": "post_LNV1Q7r3NRlBamq3",
+      "sectionId": "sec_mVbpvYkz9PRL2Rkn",
+      "title": "hanji-quiz.vercel.app",
+      "description": "",
+      "url": "https://hanji-quiz.vercel.app/quiz-live.html",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327444",
+      "sortIndex": 43008
+    },
+    {
+      "id": "post_YDgnZe2Kjm7xWwrA",
+      "sectionId": "sec_961rqRQnLeBP2nND",
+      "title": "사회 3단원 우리가 소비하는 물건의 생산과정 학습하기(드롭게임형)",
+      "description": "",
+      "url": "https://zzinzzin.my.canva.site/02",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327443",
+      "sortIndex": 41984
+    },
+    {
+      "id": "post_O7A9Qmye0mPnQ6x3",
+      "sectionId": "sec_961rqRQnLeBP2nND",
+      "title": "사회 3단원 우리가 소비하는 물건의 생산과정 학습하기(카드선택형)",
+      "description": "",
+      "url": "https://zzinzzin.my.canva.site/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327442",
+      "sortIndex": 40960
+    },
+    {
+      "id": "post_NvylWEX3eE9eZ0OX",
+      "sectionId": "sec_xPdL4gEVpPbMqpwK",
+      "title": "수업 및 업무도구 참고 제작 사이트",
+      "description": "(유진호 선생님 제작)",
+      "url": "https://www.allforedu.kr",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327440",
+      "sortIndex": 39936
+    },
+    {
+      "id": "post_kxodWG9xwEGDQgP7",
+      "sectionId": "sec_Arng4MkBG8z5qK6p",
+      "title": "수학 4단원 마무리 학습지(조작형)",
+      "description": "",
+      "url": "https://math4-1-4.netlify.app/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327438",
+      "sortIndex": 38912
+    },
+    {
+      "id": "post_mlNDZ3e3kVNNaznG",
+      "sectionId": "sec_Arng4MkBG8z5qK6p",
+      "title": "수학 3단원 마무리 학습지(조작형)",
+      "description": "",
+      "url": "https://math4-1-3.netlify.app/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327437",
+      "sortIndex": 37888
+    },
+    {
+      "id": "post_MbejW1A3qre2WNkG",
+      "sectionId": "sec_Vnr04VOVyPgD2BdW",
+      "title": "국어 5단원 마무리 학습지(조작형)",
+      "description": "",
+      "url": "https://korea4-1-5.netlify.app/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327436",
+      "sortIndex": 36864
+    },
+    {
+      "id": "post_mDRxWBD3YEr5Qjb1",
+      "sectionId": "sec_Vnr04VOVyPgD2BdW",
+      "title": "국어 4단원 마무리 학습지(조작형)",
+      "description": "",
+      "url": "https://korea4-1-4.netlify.app/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327435",
+      "sortIndex": 35840
+    },
+    {
+      "id": "post_J24jaleyXmO0Q0A1",
+      "sectionId": "sec_K8wMqGdwB8XxvZJO",
+      "title": "직사각형의 넓이",
+      "description": "",
+      "url": "https://math5-1-rect-area.netlify.app/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327434",
+      "sortIndex": 34816
+    },
+    {
+      "id": "post_PVKBQOr6VE3jaj5x",
+      "sectionId": "sec_Arng4MkBG8z5qK6p",
+      "title": "수학 2단원 마무리 학습지(조작형)",
+      "description": "",
+      "url": "https://math4-1-2.netlify.app/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327432",
+      "sortIndex": 33792
+    },
+    {
+      "id": "post_lkDVaKjbmELyWPp9",
+      "sectionId": "sec_Vnr04VOVyPgD2BdW",
+      "title": "국어 3단원 마무리 학습지(조작형)",
+      "description": "",
+      "url": "https://korean4-1-3.netlify.app/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327431",
+      "sortIndex": 32768
+    },
+    {
+      "id": "post_dMA1W8w3OozGZ4OV",
+      "sectionId": "sec_Vnr04VOVyPgD2BdW",
+      "title": "국어 2단원 마무리 학습지(조작형)",
+      "description": "",
+      "url": "https://korean4-1-2.netlify.app/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327429",
+      "sortIndex": 31744
+    },
+    {
+      "id": "post_0BA3ZpbdXmAdanPb",
+      "sectionId": "sec_J7pj4olBnmNL2KMG",
+      "title": "지표의 변화 가상실험",
+      "description": "",
+      "url": "https://yjyj45.github.io/45",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327428",
+      "sortIndex": 30720
+    },
+    {
+      "id": "post_x5m7aovbkm3YWkAV",
+      "sectionId": "sec_J7pj4olBnmNL2KMG",
+      "title": "과학: 개념(뜻)",
+      "description": "",
+      "url": "",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327427",
+      "sortIndex": 29696
+    },
+    {
+      "id": "post_lDK1ZRz93EKEZJ9z",
+      "sectionId": "sec_K8wMqGdwB8XxvZJO",
+      "title": "[수학]1㎠ 도입",
+      "description": "1단계: 직접 비교 → 2단계: 간접 비교 → 3단계: 표준 단위 도입",
+      "url": "https://song-mi.my.canva.site/math5-1-6-3",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327426",
+      "sortIndex": 28672
+    },
+    {
+      "id": "post_do3MQJYvJE3ga15w",
+      "sectionId": "sec_DKrG4nLrgzWOq1y3",
+      "title": "[과학] 식물의 특징과 생활용품 아이디어 생성",
+      "description": "식물의 특징과 생활용품을 랜덤으로 매칭하여 아이디어를 생성하는데 도움을 주는 웹앱",
+      "url": "https://gleaming-pastelito-ac7c67.netlify.app/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327425",
+      "sortIndex": 27648
+    },
+    {
+      "id": "post_pRxDZ4M3XzNVW183",
+      "sectionId": "sec_DKrG4nLrgzWOq1y3",
+      "title": "모둠별 칭찬 동료평가",
+      "description": "모둠별(개인별) 발표 후 칭찬하기 웹앱",
+      "url": "https://lustrous-smakager-3efcf2.netlify.app/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327424",
+      "sortIndex": 26624
+    },
+    {
+      "id": "post_AL83WzYjVmrMZ0Pg",
+      "sectionId": "sec_K8wMqGdwB8XxvZJO",
+      "title": "[수학]1㎡와 1㎠의 관계",
+      "description": "확대하여 시각적 이해 돕기",
+      "url": "https://song-mi.my.canva.site/math5-1-6-5",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327423",
+      "sortIndex": 25600
+    },
+    {
+      "id": "post_9kmlZV5jMEOyQpgV",
+      "sectionId": "sec_K8wMqGdwB8XxvZJO",
+      "title": "[수학]직사각형의 넓이",
+      "description": "귀납적으로 탐구하는 조작 활동",
+      "url": "https://song-mi.my.canva.site/math-5-1-6-4-1",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327422",
+      "sortIndex": 24576
+    },
+    {
+      "id": "post_v3w8Zw9qOmwoaN52",
+      "sectionId": "sec_K8wMqGdwB8XxvZJO",
+      "title": "[수학]정다각형의 둘레",
+      "description": "귀납적 탐구를 위한 조작 활동",
+      "url": "https://song-mi.my.canva.site/math-5-1-6-1-1",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327421",
+      "sortIndex": 23552
+    },
+    {
+      "id": "post_x5A7arDP4meXZwr6",
+      "sectionId": "sec_J7z0qjZzBPNeqmWQ",
+      "title": "퀴즈라이브",
+      "description": "유튜브 영상이나 파일로 퀴즈 풀기",
+      "url": "https://퀴즈라이브.한지쌤.kr",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327420",
+      "sortIndex": 22528
+    },
+    {
+      "id": "post_94PGWn5vJm60ZLRV",
+      "sectionId": "sec_Arng4MkBG8z5qK6p",
+      "title": "밀기퍼즐",
+      "description": "",
+      "url": "https://hanzissam.my.canva.site/pushpuzzle",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327419",
+      "sortIndex": 21504
+    },
+    {
+      "id": "post_YBl3Z2Ym2wk6Qv16",
+      "sectionId": "sec_Arng4MkBG8z5qK6p",
+      "title": "테트리스 평면도형 이동",
+      "description": "",
+      "url": "https://hanzissam.my.canva.site/tetris",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327418",
+      "sortIndex": 20480
+    },
+    {
+      "id": "post_jpoxajz7nmPzabPE",
+      "sectionId": "sec_J7z0qjZzBPNeqmWQ",
+      "title": "단어팡팡게임",
+      "description": "(유진호 선생님 제작) 간단한 단어-뜻 게임 전자칠판 터치 게임 가능",
+      "url": "https://voca.allforedu.kr/WordGame/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327416",
+      "sortIndex": 19456
+    },
+    {
+      "id": "post_MxrmZYen4EOBZGOq",
+      "sectionId": "sec_Arng4MkBG8z5qK6p",
+      "title": "파이프 연결",
+      "description": "",
+      "url": "https://hanzissam.my.canva.site/pipe",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327415",
+      "sortIndex": 18432
+    },
+    {
+      "id": "post_BJkrQAd3bENwaEge",
+      "sectionId": "sec_xPdL4gEVpPbMqpwK",
+      "title": "자리배치",
+      "description": "",
+      "url": "https://hanzissam.my.canva.site/seat",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327414",
+      "sortIndex": 17408
+    },
+    {
+      "id": "post_1xkVaqdDYmqgWl0e",
+      "sectionId": "sec_xPdL4gEVpPbMqpwK",
+      "title": "급식 순서",
+      "description": "",
+      "url": "https://hanzissam.my.canva.site/lunch",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327413",
+      "sortIndex": 16384
+    },
+    {
+      "id": "post_L8KjW9V3Ye82aJbv",
+      "sectionId": "sec_J7z0qjZzBPNeqmWQ",
+      "title": "개념 사냥",
+      "description": "",
+      "url": "https://hanzissam.my.canva.site/wordgame",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327412",
+      "sortIndex": 15360
+    },
+    {
+      "id": "post_E1P8aXb2dE48ZwA9",
+      "sectionId": "sec_J7z0qjZzBPNeqmWQ",
+      "title": "개념 두더지 잡기",
+      "description": "",
+      "url": "https://crashksh.my.canva.site/422",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327410",
+      "sortIndex": 14336
+    },
+    {
+      "id": "post_zV61Q6n3OJzPQO98",
+      "sectionId": "sec_J7z0qjZzBPNeqmWQ",
+      "title": "개념 축구 ",
+      "description": "",
+      "url": "https://soccer-swart-ten.vercel.app/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327409",
+      "sortIndex": 13312
+    },
+    {
+      "id": "post_lkROZPwXLE3OQjMg",
+      "sectionId": "sec_DKrG4nLrgzWOq1y3",
+      "title": "[수학] 5.길이와 시간 계산 베틀",
+      "description": "화면을 2개로 나누어 계산하기 베틀 게임",
+      "url": "https://zippy-kelpie-47ba86.netlify.app/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327408",
+      "sortIndex": 12288
+    },
+    {
+      "id": "post_j40PQD63NEokWvXB",
+      "sectionId": "sec_961rqRQnLeBP2nND",
+      "title": "사회: 개념(뜻)",
+      "description": "",
+      "url": "",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327407",
+      "sortIndex": 11264
+    },
+    {
+      "id": "post_R7dXadMLOmA0Q6bl",
+      "sectionId": "sec_Arng4MkBG8z5qK6p",
+      "title": "수학: 개념(뜻)",
+      "description": "",
+      "url": "",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327406",
+      "sortIndex": 10240
+    },
+    {
+      "id": "post_XGyBQbYp8mjwaL6K",
+      "sectionId": "sec_J7z0qjZzBPNeqmWQ",
+      "title": "저학년 덧셈 두더지게임",
+      "description": "덧셈, 뺄셈 두더지 게임",
+      "url": "https://crashksh.my.canva.site/gs42423",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327405",
+      "sortIndex": 9216
+    },
+    {
+      "id": "post_Ae2Rav098mOKZnz4",
+      "sectionId": "sec_J7z0qjZzBPNeqmWQ",
+      "title": "구구단 두더지 게임",
+      "description": "구구단 게임으로 습득하기",
+      "url": "https://crashksh.my.canva.site/gs424233",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327404",
+      "sortIndex": 8192
+    },
+    {
+      "id": "post_wKmOZ523k4lVWzMA",
+      "sectionId": "sec_xPdL4gEVpPbMqpwK",
+      "title": "발표 순서",
+      "description": "발표순서, 자리 배치, 모둠 구성 등",
+      "url": "https://crashksh.my.canva.site/gs42",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327403",
+      "sortIndex": 7168
+    },
+    {
+      "id": "post_PR3NWxqAemrkab0O",
+      "sectionId": "sec_J7z0qjZzBPNeqmWQ",
+      "title": "개념 카드 짝 맞추기",
+      "description": "카드 짝 맞추기",
+      "url": "https://crashksh.my.canva.site/04221",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327401",
+      "sortIndex": 6144
+    },
+    {
+      "id": "post_E851Q0q3knz0ZVAb",
+      "sectionId": "sec_jzJX4E5a68b64bnO",
+      "title": "2026 군산초 4-1 대시보드",
+      "description": "",
+      "url": "https://seongchwido.kiss3927k.workers.dev/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327399",
+      "sortIndex": 5120
+    },
+    {
+      "id": "post_E1P8aXb2dE43ZwA9",
+      "sectionId": "sec_J7z0qjZzBPNeqmWQ",
+      "title": "팩맨",
+      "description": "",
+      "url": "https://yjyj45.github.io/jj4545/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327398",
+      "sortIndex": 4096
+    },
+    {
+      "id": "post_lkROZPwXLE3LQjMg",
+      "sectionId": "sec_J7z0qjZzBPNeqmWQ",
+      "title": "쉬는 시간 테트리스 게임",
+      "description": "쉬는 시간 테트리스 게임",
+      "url": "https://crashksh.my.canva.site/gs424232",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327396",
+      "sortIndex": 3072
+    },
+    {
+      "id": "post_j40PQD63NEojWvXB",
+      "sectionId": "sec_J7z0qjZzBPNeqmWQ",
+      "title": "두더지 잡기",
+      "description": "",
+      "url": "https://crashksh.my.canva.site/422",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327395",
+      "sortIndex": 2048
+    },
+    {
+      "id": "post_XGyBQbYp8mj0aL6K",
+      "sectionId": "sec_DKrG4nLrgzWOq1y3",
+      "title": "인생 네 컷",
+      "description": "",
+      "url": "https://happy-children-2c9f6b.netlify.app/",
+      "padletUrl": "https://padlet.com/cansle72/2026-ai-s024f5k8x3kaut44er65/wish/4093327393",
+      "sortIndex": 1024
+    }
+  ]
+}
