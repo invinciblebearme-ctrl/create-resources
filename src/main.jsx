@@ -125,7 +125,15 @@ function App() {
 
       {/* 브랜드 사이트 헤더 (CREATE Research School 일체형 내비게이션) */}
       <header className="site-header shell">
-        <a href="https://create.allforedu.kr" className="brand" aria-label="CREATE 연구학교 메인으로 이동">
+        <a
+          href="https://create.allforedu.kr"
+          className="brand"
+          aria-label="CREATE 연구학교 메인으로 이동"
+          title="CREATE 메인 플랫폼(create.allforedu.kr)으로 이동"
+          onClick={e => {
+            window.location.href = 'https://create.allforedu.kr';
+          }}
+        >
           <span className="brand-icon">✳</span>
           <span>
             <strong>CREATE</strong>

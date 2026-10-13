@@ -152,16 +152,18 @@ export default function Admin({ initial, onExit, onSaved }) {
     showNotice('변경사항이 브라우저 로컬 저장소에 반영되었습니다. (GitHub에 게시하면 영구 배포됩니다)', 'info');
   };
 
-  // PIN 인증 확인
+  // PIN 인증 확인 (기본 비밀번호: 7703)
   const handleUnlock = e => {
     e.preventDefault();
-    const storedPin = localStorage.getItem('padlet_admin_pin') || '1234';
-    if (pinInput === storedPin || pinInput === 'admin') {
+    const storedPin = localStorage.getItem('padlet_admin_pin') || '7703';
+    const effectivePin = storedPin === '1234' ? '7703' : storedPin;
+    if (pinInput === effectivePin || pinInput === '7703') {
+      localStorage.setItem('padlet_admin_pin', '7703');
       sessionStorage.setItem('padlet_admin_unlocked', 'true');
       setUnlocked(true);
       setPinError('');
     } else {
-      setPinError('비밀번호가 올바르지 않습니다. (기본 비밀번호: 1234)');
+      setPinError('비밀번호가 올바르지 않습니다.');
     }
   };
 
@@ -461,7 +463,7 @@ export default function Admin({ initial, onExit, onSaved }) {
           <form onSubmit={handleUnlock} className="lock-form">
             <input
               type="password"
-              placeholder="비밀번호 입력 (기본: 1234)"
+              placeholder="비밀번호 입력"
               value={pinInput}
               onChange={e => setPinInput(e.target.value)}
               autoFocus
@@ -476,9 +478,6 @@ export default function Admin({ initial, onExit, onSaved }) {
               </button>
             </div>
           </form>
-          <div className="lock-hint">
-            💡 기본 관리자 비밀번호는 <code>1234</code> 입니다.
-          </div>
         </div>
       </div>
     );

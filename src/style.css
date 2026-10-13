@@ -87,6 +87,13 @@ input:focus-visible {
   color: #374f7e;
   text-align: left;
   text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.brand:hover {
+  opacity: 0.82;
+  transform: translateY(-1px);
 }
 
 .brand-icon {
