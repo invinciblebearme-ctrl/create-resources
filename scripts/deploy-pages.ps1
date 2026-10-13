@@ -14,11 +14,11 @@ if (-not $token -and (Test-Path ".env.local")) {
 }
 
 if (-not $token) {
-  $token = Read-Host "GitHub Personal Access Token (PAT)을 입력하세요"
+  $token = Read-Host "Enter GitHub Personal Access Token (PAT)"
 }
 
 if (-not $token) {
-  Write-Error "GitHub 토큰이 필요합니다."
+  Write-Error "GitHub token is required."
   exit 1
 }
 
