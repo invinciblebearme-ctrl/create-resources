@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/resources/',
+  base: 'https://invinciblebearme-ctrl.github.io/create-resources/',
 });
