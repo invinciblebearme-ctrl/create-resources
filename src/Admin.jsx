@@ -72,10 +72,12 @@ function safePath(s) {
 async function githubCall(url, token, options = {}) {
   const r = await fetch(url, {
     ...options,
+    cache: 'no-store',
     headers: {
       Accept: 'application/vnd.github+json',
       Authorization: `Bearer ${token}`,
       'X-GitHub-Api-Version': '2022-11-28',
+      'Cache-Control': 'no-cache',
       ...(options.headers || {})
     }
   });
@@ -88,6 +90,40 @@ async function githubCall(url, token, options = {}) {
     throw new Error(`GitHub ${r.status}: ${info || '요청 실패'}`);
   }
   return r.json();
+}
+
+async function updateGitHubFileWithRetry(owner, repo, filePath, branch, content, commitMessage, token) {
+  const base = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${safePath(filePath)}`;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    let sha;
+    try {
+      const checkUrl = `${base}?ref=${encodeURIComponent(branch)}&_t=${Date.now()}`;
+      const existing = await githubCall(checkUrl, token, { cache: 'no-store' });
+      sha = existing.sha;
+    } catch (e) {
+      if (!e.message.includes('404')) throw e;
+    }
+
+    try {
+      return await githubCall(base, token, {
+        method: 'PUT',
+        cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: commitMessage,
+          content,
+          branch,
+          ...(sha ? { sha } : {})
+        })
+      });
+    } catch (err) {
+      if (err.message.includes('409') && attempt < 2) {
+        await new Promise(r => setTimeout(r, 600));
+        continue;
+      }
+      throw err;
+    }
+  }
 }
 
 const icons = ['🌟', '🧩', '🎮', '🧰', '🌱', '📐', '🌏', '🔬', '📖', '➗', '✏️', '💡'];
@@ -420,47 +456,11 @@ export default function Admin({ initial, onExit, onSaved }) {
 
       // 1. 배포 브랜치 (gh-pages)의 padlet-data.json 업데이트 -> 실시간 사이트 즉각 반영!
       showNotice('1/2단계: 라이브 웹 배포(gh-pages)에 실시간 반영 중...', 'info');
-      const ghPagesBase = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/padlet-data.json`;
-      let ghPagesSha;
-      try {
-        const existingGh = await githubCall(`${ghPagesBase}?ref=gh-pages`, token);
-        ghPagesSha = existingGh.sha;
-      } catch (e) {
-        if (!e.message.includes('GitHub 404:')) throw e;
-      }
-
-      await githubCall(ghPagesBase, token, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: commitMsg,
-          content: encoded,
-          branch: 'gh-pages',
-          ...(ghPagesSha ? { sha: ghPagesSha } : {})
-        })
-      });
+      await updateGitHubFileWithRetry(owner, repo, 'padlet-data.json', 'gh-pages', encoded, commitMsg, token);
 
       // 2. 소스 브랜치 (main)의 public/padlet-data.json 업데이트 -> 소스 저장소 영구 반영!
       showNotice('2/2단계: 메인 저장소(main) 원본 코드에 저장하는 중...', 'info');
-      const mainBase = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/public/padlet-data.json`;
-      let mainSha;
-      try {
-        const existingMain = await githubCall(`${mainBase}?ref=main`, token);
-        mainSha = existingMain.sha;
-      } catch (e) {
-        if (!e.message.includes('GitHub 404:')) throw e;
-      }
-
-      await githubCall(mainBase, token, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: commitMsg,
-          content: encoded,
-          branch: 'main',
-          ...(mainSha ? { sha: mainSha } : {})
-        })
-      });
+      await updateGitHubFileWithRetry(owner, repo, 'public/padlet-data.json', 'main', encoded, commitMsg, token);
 
       // 토큰 및 설정 로컬 저장
       localStorage.setItem('padlet_admin_github_token', token);
