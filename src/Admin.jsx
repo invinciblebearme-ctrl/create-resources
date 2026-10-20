@@ -25,6 +25,7 @@ import {
   Link as LinkIcon
 } from 'lucide-react';
 
+const DRAFT_STORAGE_KEY = 'padlet-library-draft-v3';
 const emptyPost = { title: '', description: '', url: '', padletUrl: '', sectionId: '' };
 const uid = prefix => `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
 const validUrl = value => !value || /^https?:\/\/\S+$/i.test(value.trim());
@@ -38,9 +39,20 @@ function normalize(raw) {
     throw new Error('각 섹션에 유효한 id와 title이 있어야 합니다.');
   }
   return {
-    boardTitle: String(raw.boardTitle || '우리들의 AI·디지털 학습 자료실'),
-    sections: [...raw.sections].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)),
-    posts: [...raw.posts]
+    boardTitle: String(raw.boardTitle || raw.board?.title || '우리들의 AI·디지털 학습 자료실'),
+    board: raw.board || undefined,
+    summary: raw.summary || undefined,
+    sections: [...raw.sections].map(s => ({
+      ...s,
+      order: s.order ?? s.sort_index ?? 0
+    })).sort((a, b) => (a.order ?? 0) - (b.order ?? 0)),
+    posts: raw.posts.map(p => ({
+      ...p,
+      sectionId: p.sectionId || p.section_id || '',
+      description: p.description ?? p.body ?? '',
+      url: p.attachment && p.attachment.url ? p.attachment.url : (p.url || ''),
+      padletUrl: p.padletUrl || (p.attachment?.url ? (p.url || '') : (p.url?.includes('padlet.com') ? p.url : ''))
+    }))
   };
 }
 
@@ -92,7 +104,7 @@ export default function Admin({ initial, onExit, onSaved }) {
   // 메인 데이터 상태
   const [data, setData] = useState(() => {
     try {
-      const raw = localStorage.getItem('padlet-library-draft-v2');
+      const raw = localStorage.getItem(DRAFT_STORAGE_KEY);
       return raw ? normalize(JSON.parse(raw)) : normalize(structuredClone(initial));
     } catch {
       return normalize(structuredClone(initial));
@@ -139,7 +151,7 @@ export default function Admin({ initial, onExit, onSaved }) {
 
   // 로컬 초안 자동 동기화
   useEffect(() => {
-    localStorage.setItem('padlet-library-draft-v2', JSON.stringify(data));
+    localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(data));
   }, [data]);
 
   const showNotice = (text, type = 'info') => {
@@ -327,7 +339,7 @@ export default function Admin({ initial, onExit, onSaved }) {
         '정말로 모든 로컬 수정사항을 버리고 최초 원본(public/padlet-data.json) 데이터로 복원하시겠습니까?\n이 작업은 취소할 수 없습니다.'
       )
     ) {
-      localStorage.removeItem('padlet-library-draft-v2');
+      localStorage.removeItem(DRAFT_STORAGE_KEY);
       const resetData = normalize(structuredClone(initial));
       setData(resetData);
       setDirty(false);

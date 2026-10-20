@@ -36,7 +36,7 @@ function App() {
   useEffect(() => {
     // 로컬 스토리지에 작업 중인 드래프트가 있는지 우선 확인
     try {
-      const localDraft = localStorage.getItem('padlet-library-draft-v2');
+      const localDraft = localStorage.getItem('padlet-library-draft-v3');
       if (localDraft) {
         const parsed = JSON.parse(localDraft);
         if (parsed.sections && parsed.posts) {
@@ -60,7 +60,7 @@ function App() {
 
   const sections = useMemo(() => {
     if (!data?.sections) return [];
-    return [...data.sections].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+    return [...data.sections].sort((a, b) => (a.order ?? a.sort_index ?? 0) - (b.order ?? b.sort_index ?? 0));
   }, [data]);
 
   const posts = useMemo(() => {
@@ -72,18 +72,24 @@ function App() {
   const counts = useMemo(
     () =>
       Object.fromEntries(
-        sections.map(s => [s.id, posts.filter(p => p.sectionId === s.id).length])
+        sections.map(s => [s.id, posts.filter(p => (p.sectionId || p.section_id) === s.id).length])
       ),
     [sections, posts]
   );
 
   const results = useMemo(() => {
     return posts.filter(
-      p =>
-        (selected === 'all' || p.sectionId === selected) &&
-        `${p.title} ${p.description || ''} ${sections.find(s => s.id === p.sectionId)?.title || ''}`
-          .toLowerCase()
-          .includes(query.trim().toLowerCase())
+      p => {
+        const secId = p.sectionId || p.section_id;
+        const desc = p.description || p.body || '';
+        const title = p.title || '';
+        return (
+          (selected === 'all' || secId === selected) &&
+          `${title} ${desc} ${sections.find(s => s.id === secId)?.title || ''}`
+            .toLowerCase()
+            .includes(query.trim().toLowerCase())
+        );
+      }
     );
   }, [posts, selected, query, sections]);
 
@@ -114,7 +120,8 @@ function App() {
     );
   }
 
-  const boardTitle = data?.boardTitle || '우리들의 AI·디지털 학습 자료실';
+  const boardTitle = data?.boardTitle || data?.board?.title || '우리들의 AI·디지털 학습 자료실';
+  const boardDesc = data?.board?.description || '수업에 필요한 재미있고 유익한 AI·디지털 교수학습 자료를 자유롭게 탐색해 보세요!';
 
   return (
     <>
@@ -176,7 +183,7 @@ function App() {
             <p>
               {boardTitle}
               <br className="desktop-break" />
-              수업에 필요한 재미있고 유익한 AI·디지털 교수학습 자료를 자유롭게 탐색해 보세요!
+              {boardDesc}
             </p>
           </div>
 
@@ -309,24 +316,28 @@ function App() {
           ) : (
             <div className="card-grid">
               {results.map((p, idx) => {
-                const href = p.url || p.padletUrl;
-                const secIdx = sections.findIndex(s => s.id === p.sectionId);
+                const secId = p.sectionId || p.section_id;
+                const href = p.url || p.attachment?.url || '';
+                const padletLink = p.padletUrl || (p.attachment?.url ? (p.url || '') : (p.url?.includes('padlet.com') ? p.url : ''));
+                const secIdx = sections.findIndex(s => s.id === secId);
                 const tint = tintClasses[(Math.max(0, secIdx) + tintClasses.length) % tintClasses.length];
                 const itemNumber = String(idx + 1).padStart(2, '0');
+                const title = p.title || (href ? '웹앱 바로가기' : '학습 자료');
+                const desc = p.description || p.body || '선생님과 학생이 함께 활용하는 AI·디지털 학습 자료입니다.';
 
                 return (
                   <article className={`content-card ${tint}`} key={p.id}>
                     <div className="card-top">
                       <span className="card-emoji" aria-hidden="true">
-                        {sectionIcon(p.sectionId)}
+                        {sectionIcon(secId)}
                       </span>
-                      <span className="type-tag">{sectionTitle(p.sectionId)}</span>
+                      <span className="type-tag">{sectionTitle(secId)}</span>
                     </div>
 
                     <div className="card-no">CONTENT {itemNumber}</div>
-                    <h3>{p.title}</h3>
+                    <h3>{title}</h3>
                     <p className="card-desc">
-                      {p.description || '선생님과 학생이 함께 활용하는 AI·디지털 학습 자료입니다.'}
+                      {desc}
                     </p>
 
                     <div className="card-bottom">
@@ -351,9 +362,9 @@ function App() {
                             자료 열기 <ArrowUpRight size={15} />
                           </a>
                         )}
-                        {p.url && p.padletUrl && (
+                        {padletLink && (
                           <a
-                            href={p.padletUrl}
+                            href={padletLink}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="card-action-btn subtle"
