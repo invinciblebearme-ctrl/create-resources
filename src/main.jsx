@@ -32,6 +32,7 @@ function App() {
   const [error, setError] = useState('');
   const [selected, setSelected] = useState('all');
   const [query, setQuery] = useState('');
+  const [hasLocalDraft, setHasLocalDraft] = useState(false);
 
   useEffect(() => {
     // 로컬 스토리지에 작업 중인 드래프트가 있는지 우선 확인
@@ -41,13 +42,15 @@ function App() {
         const parsed = JSON.parse(localDraft);
         if (parsed.sections && parsed.posts) {
           setData(parsed);
+          setHasLocalDraft(true);
           return;
         }
       }
     } catch { }
 
-    // 정적 JSON 데이터 fetch
-    fetch(`${import.meta.env.BASE_URL}padlet-data.json`)
+    setHasLocalDraft(false);
+    // 정적 JSON 데이터 fetch (실시간 캐시 방지)
+    fetch(`${import.meta.env.BASE_URL}padlet-data.json?v=${Date.now()}`, { cache: 'no-store' })
       .then(r => {
         if (!r.ok) throw new Error('자료를 불러올 수 없습니다.');
         return r.json();
@@ -106,6 +109,7 @@ function App() {
         initial={data}
         onSaved={updated => {
           setData(updated);
+          setHasLocalDraft(false);
         }}
         onExit={() => {
           window.location.hash = '';
@@ -130,7 +134,15 @@ function App() {
         ✦　✧　✦　✧　✦
       </div>
 
-      {/* 브랜드 사이트 헤더 (CREATE Research School 일체형 내비게이션) */}
+      {/* 로컬 임시 수정본 안내 배너 (관리자 브라우저에만 표시) */}
+      {hasLocalDraft && (
+        <aside className="local-draft-banner shell" role="status">
+          <span>💡 <strong>현재 브라우저에만 보이는 로컬 임시 수정본</strong>입니다. 모든 사용자(학생, 선생님)에게 반영하려면 관리자 화면에서 <strong>[모든 사용자에게 배포]</strong>를 눌러주세요.</span>
+          <a href="#admin" className="banner-link">관리자 화면 열기 →</a>
+        </aside>
+      )}
+
+      {/* 브랜드 사이트 헤더 (AI DIGITAL Research School 일체형 내비게이션) */}
       <header className="site-header shell">
         <a
           href="https://create.allforedu.kr"

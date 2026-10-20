@@ -141,10 +141,11 @@ export default function Admin({ initial, onExit, onSaved }) {
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem('padlet-library-github-config') || '{}');
+      const savedToken = localStorage.getItem('padlet_admin_github_token') || '';
       setGit(old => ({
         ...old,
         ...saved,
-        token: '' // 토큰은 보안상 비워둠
+        token: savedToken || old.token || ''
       }));
     } catch {}
   }, []);
@@ -380,63 +381,103 @@ export default function Admin({ initial, onExit, onSaved }) {
     }
   };
 
-  // GitHub에 게시
+  // GitHub 저장소 및 실시간 배포(gh-pages) 동시 게시
   const publish = async () => {
-    const { owner, repo, branch, path, token, commitMessage } = git;
-    if (!owner || !repo || !branch || !path || !token) {
-      showNotice('GitHub 소유자, 저장소 이름, 브랜치, 경로와 개인 액세스 토큰(PAT)을 모두 입력하세요.', 'error');
-      return;
+    let token = (git.token || '').trim();
+    if (!token) {
+      token = (localStorage.getItem('padlet_admin_github_token') || '').trim();
+    }
+    if (!token) {
+      const input = prompt(
+        '모든 사용자(학생, 선생님)에게 반영하기 위해 GitHub 개인 액세스 토큰(PAT)을 입력해 주세요.\n(한 번 입력하면 이 브라우저에 안전하게 저장되어 다음부터는 원클릭으로 배포됩니다)'
+      );
+      if (!input || !input.trim()) {
+        showNotice('배포가 취소되었습니다. GitHub 토큰이 필요합니다.', 'error');
+        return;
+      }
+      token = input.trim();
+      localStorage.setItem('padlet_admin_github_token', token);
+      setGit(g => ({ ...g, token }));
     }
 
     if (
       !confirm(
-        `[${owner}/${repo}] 저장소의 '${branch}' 브랜치에 '${path}' 파일을 커밋하시겠습니까?\n커밋 후 Cloudflare Pages에서 자동 빌드 및 배포가 진행됩니다.`
+        '수정한 학습 자료를 모든 사용자에게 실시간 배포하시겠습니까?\n배포 즉시 GitHub Pages 라이브 사이트에 동기화되어 모든 사용자의 화면에 동일하게 반영됩니다.'
       )
     ) {
       return;
     }
 
     setBusy(true);
-    showNotice('GitHub 저장소의 기존 파일 정보를 확인하고 있습니다...', 'info');
+    showNotice('모든 사용자에게 반영하기 위해 배포를 시작합니다...', 'info');
 
     try {
-      const base = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(
-        repo
-      )}/contents/${safePath(path)}`;
-      const url = `${base}?ref=${encodeURIComponent(branch)}`;
-      let sha;
+      const owner = git.owner || 'invinciblebearme-ctrl';
+      const repo = git.repo || 'create-resources';
+      const jsonContent = JSON.stringify(data, null, 2) + '\n';
+      const encoded = toBase64Unicode(jsonContent);
+      const commitMsg = git.commitMessage || `자료실 데이터 업데이트 (Admin 전체 배포: ${new Date().toLocaleString('ko-KR')})`;
 
+      // 1. 배포 브랜치 (gh-pages)의 padlet-data.json 업데이트 -> 실시간 사이트 즉각 반영!
+      showNotice('1/2단계: 라이브 웹 배포(gh-pages)에 실시간 반영 중...', 'info');
+      const ghPagesBase = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/padlet-data.json`;
+      let ghPagesSha;
       try {
-        const existing = await githubCall(url, token);
-        sha = existing.sha;
+        const existingGh = await githubCall(`${ghPagesBase}?ref=gh-pages`, token);
+        ghPagesSha = existingGh.sha;
       } catch (e) {
         if (!e.message.includes('GitHub 404:')) throw e;
       }
 
-      await githubCall(base, token, {
+      await githubCall(ghPagesBase, token, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          message: commitMessage || 'Update learning library data via admin',
-          content: toBase64Unicode(JSON.stringify(data, null, 2) + '\n'),
-          branch,
-          ...(sha ? { sha } : {})
+          message: commitMsg,
+          content: encoded,
+          branch: 'gh-pages',
+          ...(ghPagesSha ? { sha: ghPagesSha } : {})
         })
       });
 
-      // 설정 저장 (토큰 제외)
+      // 2. 소스 브랜치 (main)의 public/padlet-data.json 업데이트 -> 소스 저장소 영구 반영!
+      showNotice('2/2단계: 메인 저장소(main) 원본 코드에 저장하는 중...', 'info');
+      const mainBase = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/public/padlet-data.json`;
+      let mainSha;
+      try {
+        const existingMain = await githubCall(`${mainBase}?ref=main`, token);
+        mainSha = existingMain.sha;
+      } catch (e) {
+        if (!e.message.includes('GitHub 404:')) throw e;
+      }
+
+      await githubCall(mainBase, token, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: commitMsg,
+          content: encoded,
+          branch: 'main',
+          ...(mainSha ? { sha: mainSha } : {})
+        })
+      });
+
+      // 토큰 및 설정 로컬 저장
+      localStorage.setItem('padlet_admin_github_token', token);
       localStorage.setItem(
         'padlet-library-github-config',
-        JSON.stringify({ owner, repo, branch, path, commitMessage })
+        JSON.stringify({ owner, repo, branch: 'main', path: 'public/padlet-data.json', commitMessage: commitMsg })
       );
+      // 로컬 임시 드래프트 제거 -> 이제 서버 공식 데이터와 일치
+      localStorage.removeItem(DRAFT_STORAGE_KEY);
       setDirty(false);
       showNotice(
-        `성공적으로 GitHub에 게시되었습니다! (커밋 완료)\nCloudflare Pages 자동 배포가 완료되면 수 분 내에 사이트에 반영됩니다.`,
+        '🎉 모든 사용자에게 성공적으로 배포되었습니다! (웹에 실시간 반영 완료)\n이제 모든 학생 및 선생님 화면에 실시간으로 동일하게 반영됩니다.',
         'success'
       );
       if (onSaved) onSaved(data);
     } catch (e) {
-      showNotice(`게시 실패: ${e.message} (토큰의 Contents: Read and write 권한 및 저장소 이름을 확인하세요)`, 'error');
+      showNotice(`배포 실패: ${e.message} (토큰의 권한 또는 저장소 설정을 확인하세요)`, 'error');
     } finally {
       setBusy(false);
     }
@@ -502,7 +543,18 @@ export default function Admin({ initial, onExit, onSaved }) {
           <ArrowLeft size={17} /> 자료실 돌아가기
         </button>
         <div className="admin-top-right">
-          <span className="badge-live">관리자 모드 활성</span>
+          <span className={dirty ? 'badge-dirty' : 'badge-synced'}>
+            {dirty ? '● 로컬 임시 수정됨 (전체 미배포)' : '✓ 모든 사용자 반영 완료'}
+          </span>
+          <button
+            className="admin-publish-header-btn"
+            disabled={busy}
+            onClick={publish}
+            title="수정한 내용을 GitHub에 저장하고 모든 사용자가 볼 수 있도록 실시간 배포합니다"
+          >
+            <CloudUpload size={16} />
+            {busy ? '전체 배포 중...' : '🌐 모든 사용자에게 배포 (전체 반영)'}
+          </button>
           <button className="admin-button subtle small" onClick={handleLock} title="관리자 잠금">
             <Lock size={15} /> 잠금
           </button>
@@ -839,14 +891,14 @@ export default function Admin({ initial, onExit, onSaved }) {
         </section>
       </div>
 
-      {/* GitHub 및 배포 관리 패널 */}
+      {/* GitHub 및 전체 배포 관리 패널 */}
       <section className="admin-panel publish-panel">
         <div className="admin-panel-heading">
           <div className="publish-heading-content">
             <CloudUpload size={22} className="cloud-icon" />
             <div>
-              <h2>GitHub 저장소 동기화 & Cloudflare Pages 자동 배포</h2>
-              <small>저장소 원본 JSON에 커밋을 생성하여 실시간 배포를 트리거합니다.</small>
+              <h2>전체 사용자 실시간 배포 (GitHub Pages & 저장소 동기화)</h2>
+              <small>로컬에서 수정한 내용을 GitHub Pages(라이브 배포)와 main 저장소에 동시에 커밋하여 모든 사용자에게 즉시 반영합니다.</small>
             </div>
           </div>
           <span className={`status-pill ${dirty ? 'dirty' : 'clean'}`}>
@@ -874,23 +926,24 @@ export default function Admin({ initial, onExit, onSaved }) {
           <label>
             배포 대상 브랜치
             <input
-              placeholder="main"
+              placeholder="main (gh-pages 동시 반영)"
               value={git.branch}
-              onChange={e => setGit({ ...git, branch: e.target.value.trim() })}
+              disabled
+              title="gh-pages(웹 배포)와 main(소스 코드)에 동시 배포됩니다"
             />
           </label>
           <label>
             데이터 파일 경로
             <input
-              placeholder="public/padlet-data.json"
+              placeholder="padlet-data.json"
               value={git.path}
-              onChange={e => setGit({ ...git, path: e.target.value.trim() })}
+              disabled
             />
           </label>
           <label className="span-two">
             커밋 메시지
             <input
-              placeholder="자료실 데이터 업데이트 (Admin)"
+              placeholder="자료실 데이터 업데이트 (Admin 전체 배포)"
               value={git.commitMessage}
               onChange={e => setGit({ ...git, commitMessage: e.target.value })}
             />
@@ -898,26 +951,29 @@ export default function Admin({ initial, onExit, onSaved }) {
           <label className="span-two token-input-wrap">
             Personal Access Token (PAT)
             <span className="token-desc">
-              * GitHub Token은 브라우저 저장소에 영구 보관되지 않고 안전하게 일회성 API 호출에만 사용됩니다.
+              * GitHub Token은 브라우저 저장소에 안전하게 보관되어 상단의 [모든 사용자에게 배포] 클릭 시 원클릭으로 사용됩니다.
             </span>
             <input
               type="password"
               autoComplete="off"
               placeholder="ghp_... 또는 github_pat_..."
               value={git.token}
-              onChange={e => setGit({ ...git, token: e.target.value.trim() })}
+              onChange={e => {
+                const val = e.target.value.trim();
+                setGit({ ...git, token: val });
+                if (val) localStorage.setItem('padlet_admin_github_token', val);
+              }}
             />
           </label>
         </div>
 
         <div className="publish-footer">
           <div className="publish-info">
-            💡 <strong>Cloudflare 자동 연동:</strong> GitHub의 <code>{git.repo || 'create-resources'}</code> 저장소가
-            Cloudflare Pages와 연결되어 있으면, 여기서 <strong>[GitHub에 게시]</strong> 클릭 시 자동으로 최신 자료실 웹사이트가 재배포됩니다.
+            💡 <strong>전체 사용자 반영 안내:</strong> 여기서 <strong>[모든 사용자에게 배포]</strong>를 클릭하면 GitHub Pages의 라이브 데이터와 저장소 코드가 동시에 갱신되어, <strong>모든 학생과 선생님의 화면에 실시간으로 동일하게 반영</strong>됩니다.
           </div>
           <button className="admin-button primary large" disabled={busy} onClick={publish}>
             <CloudUpload size={18} />
-            {busy ? 'GitHub에 커밋 푸시 중...' : 'GitHub에 게시 및 배포 실행'}
+            {busy ? '모든 사용자에게 배포 중...' : '🌐 모든 사용자에게 배포 (전체 반영 실행)'}
           </button>
         </div>
       </section>
