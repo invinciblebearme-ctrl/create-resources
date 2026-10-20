@@ -72,12 +72,10 @@ function safePath(s) {
 async function githubCall(url, token, options = {}) {
   const r = await fetch(url, {
     ...options,
-    cache: 'no-store',
     headers: {
       Accept: 'application/vnd.github+json',
       Authorization: `Bearer ${token}`,
       'X-GitHub-Api-Version': '2022-11-28',
-      'Cache-Control': 'no-cache',
       ...(options.headers || {})
     }
   });
@@ -98,7 +96,7 @@ async function updateGitHubFileWithRetry(owner, repo, filePath, branch, content,
     let sha;
     try {
       const checkUrl = `${base}?ref=${encodeURIComponent(branch)}&_t=${Date.now()}`;
-      const existing = await githubCall(checkUrl, token, { cache: 'no-store' });
+      const existing = await githubCall(checkUrl, token);
       sha = existing.sha;
     } catch (e) {
       if (!e.message.includes('404')) throw e;
@@ -107,7 +105,6 @@ async function updateGitHubFileWithRetry(owner, repo, filePath, branch, content,
     try {
       return await githubCall(base, token, {
         method: 'PUT',
-        cache: 'no-store',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: commitMessage,
