@@ -26,3 +26,7 @@ yarn-error.log*
 *.sw?
 .DS_Store
 Thumbs.db
+
+# Temporary files and screenshots
+scratch*
+screenshot*.png

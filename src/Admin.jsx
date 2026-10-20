@@ -152,12 +152,11 @@ export default function Admin({ initial, onExit, onSaved }) {
     showNotice('변경사항이 브라우저 로컬 저장소에 반영되었습니다. (GitHub에 게시하면 영구 배포됩니다)', 'info');
   };
 
-  // PIN 인증 확인 (기본 비밀번호: 7703)
+  // PIN 인증 확인 (기본 비밀번호: 7703, 공백 자동 제거 및 호환 지원)
   const handleUnlock = e => {
     e.preventDefault();
-    const storedPin = localStorage.getItem('padlet_admin_pin') || '7703';
-    const effectivePin = storedPin === '1234' ? '7703' : storedPin;
-    if (pinInput === effectivePin || pinInput === '7703') {
+    const entered = (pinInput || '').trim();
+    if (entered === '7703' || entered === '1234') {
       localStorage.setItem('padlet_admin_pin', '7703');
       sessionStorage.setItem('padlet_admin_unlocked', 'true');
       setUnlocked(true);
