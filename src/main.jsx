@@ -44,7 +44,7 @@ function App() {
           return;
         }
       }
-    } catch {}
+    } catch { }
 
     // 정적 JSON 데이터 fetch
     fetch(`${import.meta.env.BASE_URL}padlet-data.json`)
@@ -135,15 +135,15 @@ function App() {
         <a
           href="https://create.allforedu.kr"
           className="brand"
-          aria-label="CREATE 연구학교 메인으로 이동"
-          title="CREATE 메인 플랫폼(create.allforedu.kr)으로 이동"
+          aria-label="AI DIGITAL 연구학교 메인으로 이동"
+          title="AI DIGITAL 메인 플랫폼으로 이동"
           onClick={e => {
             window.location.href = 'https://create.allforedu.kr';
           }}
         >
           <span className="brand-icon">✳</span>
           <span>
-            <strong>CREATE</strong>
+            <strong>AI DIGITAL</strong>
             <small>RESEARCH SCHOOL</small>
           </span>
         </a>
@@ -174,7 +174,7 @@ function App() {
           </span>
 
           <div className="hero-inner">
-            <span className="eyebrow">✦ CREATE AI·DIGITAL LEARNING LIBRARY ✦</span>
+            <span className="eyebrow">✦ AI·DIGITAL LEARNING LIBRARY ✦</span>
             <h1>
               함께 나누고,
               <br />
@@ -195,7 +195,7 @@ function App() {
               🌟 {posts.length}개 학습 자료
             </span>
             <span>
-              🏫 CREATE 연구학교
+              🏫 AI·디지털 연구학교
             </span>
           </div>
         </section>
@@ -224,7 +224,7 @@ function App() {
                 {selectedSection ? `${selectedSection.title} 자료` : '학습 자료 둘러보기'}{' '}
                 <span className="sparkle">✦</span>
               </h2>
-              <p>원하는 과목이나 학년을 골라 편리하게 살펴보세요.</p>
+              <p>AI 디지털 활용 교수학습 자료를 학년 교과 주제별로 찾아보고 활용해보세요.</p>
             </div>
             <span className="section-badge">
               {results.length}개의 추천 자료
@@ -387,15 +387,15 @@ function App() {
       <footer>
         <div className="shell footer-inner">
           <div>
-            <strong>✳ CREATE 모형 연구학교 학습 자료실</strong>
+            <strong>✳ AI DIGITAL 연구학교 학습 자료실</strong>
             <p>수업의 성장과 배움의 나눔을 위한 AI·디지털 성과 공유 플랫폼</p>
           </div>
           <div className="footer-links">
-            <a href="https://create.allforedu.kr">CREATE 메인 플랫폼</a>
+            <a href="https://create.allforedu.kr">메인 플랫폼</a>
             <span className="footer-divider">·</span>
             <a href="#admin">관리자 설정</a>
             <span className="footer-divider">·</span>
-            <span>© CREATE Research School</span>
+            <span>© AI DIGITAL Research School</span>
           </div>
         </div>
       </footer>
